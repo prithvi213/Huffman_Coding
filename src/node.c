@@ -1,8 +1,8 @@
+#include "node.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-#include "node.h"
 
 // Creates a node
 Node *node_create(uint8_t symbol, uint64_t frequency) {

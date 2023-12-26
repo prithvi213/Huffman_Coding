@@ -1,7 +1,7 @@
+#include "stack.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "stack.h"
 
 // Creates the stack
 Stack *stack_create(uint32_t capacity) {
@@ -61,7 +61,7 @@ bool stack_pop(Stack *s, Node **n) {
 
     s->top -= 1;
     *n = s->items[s->top];
-    return false;
+    return true;
 }
 
 // Prints out stack contents
