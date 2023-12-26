@@ -7,6 +7,12 @@
 
 typedef struct Stack Stack;
 
+struct Stack { 
+    uint32_t top;
+    uint32_t capacity;
+    Node **items; 
+};
+
 Stack *stack_create(uint32_t capacity);
 
 void stack_delete(Stack **s);
