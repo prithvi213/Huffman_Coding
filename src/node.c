@@ -9,6 +9,7 @@ Node *node_create(uint8_t symbol, uint64_t frequency) {
     Node *n = (Node *) malloc(sizeof(Node));
     
     if(n != NULL) {
+        n->left = n->right = NULL;
         n->symbol = symbol;
         n->frequency = frequency;
     }

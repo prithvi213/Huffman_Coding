@@ -16,6 +16,7 @@ Stack *stack_create(uint32_t capacity) {
     return s;
 }
 
+// Deletes the stack
 void stack_delete(Stack **s) {
     if(s && *s && (*s)->items) {
         free((*s)->items);
@@ -26,18 +27,22 @@ void stack_delete(Stack **s) {
     return;
 }
 
+// Checks if stack is empty
 bool stack_empty(Stack *s) {
     return (s->top == 0);
 }
 
+// Checks if stack is full
 bool stack_full(Stack *s) {
     return (s->top == s->capacity);
 }
 
+// Returns stack size
 uint32_t stack_size(Stack *s) {
     return s->top;
 }
 
+// Pushes element onto stack
 bool stack_push(Stack *s, Node *n) {
     if(stack_full(s)) {
         return false;
@@ -48,6 +53,7 @@ bool stack_push(Stack *s, Node *n) {
     return true;
 }
 
+// Pops element off stack
 bool stack_pop(Stack *s, Node **n) {
     if(stack_empty(s)) {
         return false;
@@ -58,6 +64,7 @@ bool stack_pop(Stack *s, Node **n) {
     return false;
 }
 
+// Prints out stack contents
 void stack_print(Stack *s) {
     for(uint32_t i = 0; i < s->top - 1; i++) {
         node_print(s->items[i]);
