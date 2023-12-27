@@ -3,7 +3,7 @@ CFLAGS = -g -Wall -Wextra -Werror -Wpedantic
 
 all: encode
 
-encode: encode.o code.o pq.o stack.o node.o
+encode: encode.o io.o code.o pq.o stack.o node.o
 	$(CC) $(CFLAGS) -o encode $^
 
 %.o: %.c *.h
