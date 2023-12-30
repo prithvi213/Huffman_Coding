@@ -59,7 +59,7 @@ bool enqueue(PriorityQueue *q, Node *n) {
         return false;
     }
 
-    int64_t max_index = ((int64_t)q->top) - 1;
+    int64_t max_index = ((int64_t)q->tail) - 1;
 
     while(max_index >= 0 && q->items[max_index]->frequency > n->frequency) {
         q->items[(uint32_t)(max_index + 1)] = q->items[(uint32_t)(max_index)];
@@ -86,11 +86,14 @@ bool dequeue(PriorityQueue *q, Node **n) {
 
 // Prints out whole priority queue
 void pq_print(PriorityQueue *q) {
-    for(uint32_t i = q->head; i < q->tail; i++) {
-        node_print(q->items[i]);
+    for(int64_t i = q->head; i < ((int64_t)q->tail) - 1; i++) {
+        node_print(q->items[(uint32_t)i]);
         printf(", ");
     }
 
-    node_print(q->items[q->top - 1]);
+    if(q->top > 0) {
+        node_print(q->items[q->tail - 1]);
+    }
+
     printf("\n");
 }

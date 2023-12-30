@@ -4,10 +4,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-
+#include <stdio.h>
 
 uint64_t bytes_read = 0;
 uint64_t bytes_written = 0;
+//static uint8_t buffer_write[BLOCK];
 
 int read_bytes(int infile, uint8_t *buf, int nbytes) {
     int byte_count, smaller_byte_amount;
@@ -36,3 +37,24 @@ int write_bytes(int outfile, uint8_t *buf, int nbytes) {
 
     return bytes_written;
 }
+
+bool read_bit(int infile, uint8_t *bit) {
+    static uint8_t buffer_read[BLOCK];
+    static uint32_t index = 0;
+
+    if(index == 0) {
+        int bytes_read = read(infile, buffer_read, BLOCK);
+
+        if(bytes_read == 0) {
+            return false;
+        }
+    }
+
+    *bit = (buffer_read[index / 8] >> (index % 8)) & 1;
+    index = (index + 1 % BLOCK);
+    return true;
+}
+
+//void write_code(int outfile, Code *c) {}
+
+//void flush_codes(int outfile) {}

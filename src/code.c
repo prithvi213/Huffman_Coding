@@ -83,10 +83,9 @@ bool code_pop_bit(Code *c, uint8_t *bit) {
 
 // Prints out code
 void code_print(Code *c) {
-    for(uint32_t i = 0; i < c->top - 1; i++) {
-        printf("%u, ", c->bits[i]);
+    for(int64_t i = 0; i < ((int64_t)c->top); i++) {
+        printf("%u", c->bits[(uint32_t)i]);
     }
 
-    printf("%u", c->bits[c->top - 1]);
     printf("\n");
 }
