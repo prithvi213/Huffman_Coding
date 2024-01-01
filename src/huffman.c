@@ -1,10 +1,12 @@
 #include "huffman.h"
 #include "pq.h"
 #include "stack.h"
+#include "io.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 // Extern variable for build_codes
 Code c;
@@ -20,10 +22,10 @@ Node *build_tree(uint64_t hist[static ALPHABET]) {
     }
 
     while(pq_size(q) > 1) {
-        Node *n1, *n2, *parent;
-        dequeue(q, &n1);
-        dequeue(q, &n2);
-        parent = node_join(n1, n2);
+        Node *left, *right, *parent;
+        dequeue(q, &left);
+        dequeue(q, &right);
+        parent = node_join(left, right);
         enqueue(q, parent);
     }
 
@@ -64,7 +66,7 @@ void dump_tree(int outfile, Node *root) {
             node_type = 'I';
             write(outfile, &node_type, 1);
         }
-    } 
+    }
 }
 
 Node *rebuild_tree(uint16_t nbytes, uint8_t tree[static nbytes]) {

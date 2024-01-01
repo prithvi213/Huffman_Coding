@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define BITS_PER_BLOCK 8
+
 // Creates the code
 Code code_init(void) {
     Code c;
@@ -27,7 +29,7 @@ bool code_empty(Code *c) {
 
 // Returns if code is full
 bool code_full(Code *c) {
-    return (c->top == MAX_CODE_SIZE);
+    return (c->top == ALPHABET);
 }
 
 // Sets bit at given index
@@ -36,7 +38,7 @@ bool code_set_bit(Code *c, uint32_t i) {
         return false;
     }
 
-    c->bits[i / 8] |= (1 << i % 8);
+    c->bits[i / BITS_PER_BLOCK] |= (1 << i % BITS_PER_BLOCK);
     return true;
 }
 
@@ -46,7 +48,7 @@ bool code_clr_bit(Code *c, uint32_t i) {
         return false;
     }
 
-    c->bits[i / 8] &= ~(1 << i % 8);
+    c->bits[i / BITS_PER_BLOCK] &= ~(1 << i % BITS_PER_BLOCK);
     return true;
 }
 
@@ -56,7 +58,7 @@ bool code_get_bit(Code *c, uint32_t i) {
         return false;
     }
 
-    return (c->bits[i / 8] >> (i % 8)) & 1;
+    return (c->bits[i / BITS_PER_BLOCK] >> (i % BITS_PER_BLOCK)) & 1;
 }
 
 // Pushes bit onto code
@@ -65,7 +67,12 @@ bool code_push_bit(Code *c, uint8_t bit) {
         return false;
     }
 
-    c->bits[c->top] = bit;
+    if(bit == 1) {
+        code_set_bit(c, c->top);
+    } else {
+        code_clr_bit(c, c->top);
+    }
+
     c->top += 1;
     return true;
 }
@@ -77,14 +84,15 @@ bool code_pop_bit(Code *c, uint8_t *bit) {
     }
 
     c->top -= 1;
-    *bit = c->bits[c->top];
+    *bit = code_get_bit(c, c->top);
+    code_clr_bit(c, c->top);
     return true;
 }
 
 // Prints out code
 void code_print(Code *c) {
     for(int64_t i = 0; i < ((int64_t)c->top); i++) {
-        printf("%u", c->bits[(uint32_t)i]);
+        printf("%u", code_get_bit(c, i));
     }
 
     printf("\n");
