@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
     }
 
     uint8_t *data = (uint8_t *) malloc(bytes_read + 1);
-    strncpy((char *)data, (char *)buf, bytes_read);
+    memcpy(data, buf, bytes_read * sizeof(uint8_t));
     data[bytes_read] = '\0';
     memset(buf, 0, bytes_read);
 
@@ -129,7 +129,6 @@ int main(int argc, char **argv) {
     }
 
     flush_codes(oFile);
-    write(oFile, &new_line, 1);
 
     // Step 9: Close infile and outfile and free up memory
     free(buf);

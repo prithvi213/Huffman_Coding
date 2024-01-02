@@ -25,7 +25,7 @@ int read_bytes(int infile, uint8_t *buf, int nbytes) {
         smaller_byte_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
     }
 
-    return current_bytes_read;
+    return bytes_read;
 }
 
 int write_bytes(int outfile, uint8_t *buf, int nbytes) {

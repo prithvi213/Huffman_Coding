@@ -1,225 +1,195 @@
-Long renowned for his superb defense and ability to handle a staff, Maldonado became the Astros’ top catcher across the last half-decade. Despite a .623 OPS in an Astros uniform -- that number dropped to .593 the last three seasons -- Maldonado was slotted in as Houston’s primary catcher due to his defense and success working with Astros pitchers. 2023 breakout rookie Yainer Diaz and veteran catcher Victor Caratini -- whom the Astros signed to a multi-year contract this offseason -- will handle catching duties for Houston in 2024.
+PA 4 Report
+Team: lilp
+Members: Michael Lee, Ethan Tran, Lucas Lee, Prithvi Arunshankar
+	Our project aimed to design and create offensive and defensive agents to secure the opposing team’s food dots while actively protecting our own. This report will outline our modeling and implementation of these agents as well as the rationale behind key design decisions.
+	Initially, we put our focus on the offensive agent, which utilized a somewhat simple approach to the problem. Using the baseline agent’s offense code as a starting template, we made several key changes to the original code that made drastic improvements in our offensive agent’s performance. In general, we wanted our offensive agent to target the food closest to it while, at the same time, maintaining a sense of self-preservation. To do this, we decided to make an evaluation function for both the offensive and defensive agents to change weights and give priority to specific actions and scenarios instead of using an algorithm to iterate the maze.
+To carry out the behavior for targeting the closest food dots, we took the distance from each food dot to the agent and set our “distanceToFood” feature to the closest food dot’s distance. As for keeping the agent alive in enemy territory, we took the distance from each enemy ghost to the agent and assigned the “ghostDistance'' feature scenario-specific values - influencing the agent to run away from the ghost if it was within two spaces unless the ghost was scared. To further the agent’s lifespan, we also created a “capsule” feature that pushed the agent to eat capsules within three spaces, so that, for a short while, defending ghosts would not impede the food collection of the agent. Additionally, taking note that “Stop” action in enemy territory would not be ideal, we set its respective feature to an extremely low number to keep the agent moving.
+However, an issue with our offensive agent quickly arose: the agent would sometimes end up in a deadlock at the border if an enemy ghost was also there. To circumvent this crippling issue, we improved our code functionality so that our pacman would be less than two distances from the enemy ghost and to make sure it wouldn’t be scared of an enemy ghost as long as it was on the team’s side. This way our agent would find a way to get past the ghost to find the closest food. After making these changes, our offensive agent worked much more smoothly, increasing our win rate significantly against the baseline agents - with no lack of contribution from our defensive agent.
+PA 4 Report
+Team: lilp
+Members: Michael Lee, Ethan Tran, Lucas Lee, Prithvi Arunshankar
+	Our project aimed to design and create offensive and defensive agents to secure the opposing team’s food dots while actively protecting our own. This report will outline our modeling and implementation of these agents as well as the rationale behind key design decisions.
+	Initially, we put our focus on the offensive agent, which utilized a somewhat simple approach to the problem. Using the baseline agent’s offense code as a starting template, we made several key changes to the original code that made drastic improvements in our offensive agent’s performance. In general, we wanted our offensive agent to target the food closest to it while, at the same time, maintaining a sense of self-preservation. To do this, we decided to make an evaluation function for both the offensive and defensive agents to change weights and give priority to specific actions and scenarios instead of using an algorithm to iterate the maze.
+PA 4 Report
+Team: lilp
+Members: Michael Lee, Ethan Tran, Lucas Lee, Prithvi Arunshankar
+qwertyuiopoiuytrewqwertyuiop[poiuytrewertyuioiuytreweriopoiuytrewqwertyuioiuytrewqertyuioiuytrewwertyuioiuytrewerty]
+qwertyuopoiuytrewqwertyuiopoiuytrewertyuiopoiuytrewertyuiopoiuytrewqwertyuioiuytrewertyuioiuytrertyuioiuytrewertyu
+qwertyuiopoiuytreqwertyuiopoiuytrewertyuiopoiuytrewqweopoiuytrewqwertyuiopoiuytrewqwertyuiopoiuytrewqasdfghjklkjhgf
+qwertyopoiuytrerkjhgfdcmnbvcghjkjhgqwertyuiopasdfghjklzk123o1234567890
+This is the year! The year you’re going to start that hobby, lose that weight, find that love, get that job or otherwise elevate your existence.
 
-Maldonado also worked with manager Pedro Grifol in Kansas City during the 2019 campaign, when Grifol was part of the Royals' coaching staff. He played with Korey Lee in Houston, with Lee being acquired at the '23 Trade Deadline in exchange for reliever Kendall Graveman as one of the team’s potential catchers of the future.
+The January changing of the calendar (unless you’re the type to actually use the first four months of those 16-month calendars they sell at mall kiosks) is as good a time as any to assess, adapt and improve.
 
-“I got to be around Martín Maldonado, I got to learn from him,” Lee said this past September. “I got to see how he managed a pitching staff at that end. Learned how he communicated with pitchers and it taught me a lot.
+And it’s the same way for our favorite sport.
 
-“I’m going to carry that further into my career and make it my way, but he taught me how to be a professional catcher over there in Houston. They knew how to win and I want to bring that over to the White Sox.”
+What follows are a few modest (?) 2024 resolutions proposed for the grand ol’ game and those who participate in it.
 
-Maldonado's solo homer (14)
-Sep 18, 2023 · 0:29
-Maldonado's solo homer (14)
-This signing is sensible for the White Sox with a young pitching staff that now has another backstop to pair with Max Stassi, whom the team acquired from the Braves earlier this month, and Lee. With potential turnover coming for a White Sox team headed by new general manager Chris Getz -- who might be tasked with moving frontline starter Dylan Cease -- there’s value in signing a veteran catcher who’s been a part of many winning Astros teams.
+Ronald Acuña Jr.'s 70th stolen base
+Sep 27, 2023 · 0:29
+Ronald Acuña Jr.'s 70th stolen base
+To baserunners: Summon your inner Acuña
+Obviously, Ronald Acuña Jr., with 41 homers and 73 steals in 2023, is in a class all his own in terms of the power-speed profile. But he showed us what can happen in the new rules environment when a runner is especially adventurous on the basepaths.
 
-Lee, 25, impressed the White Sox with his September work behind the plate, but for his young big league career, Lee is hitting .100 at the plate. Edgar Quero, the team’s 20-year-old switch-hitting catcher ranked No. 81 overall by MLB Pipeline, will benefit from working with Maldonado.
+Acuña attempted 87 steals -- the most since Jose Reyes (99) in 2007. It was the equivalent of one steal attempt for every three times he reached base via a single, double, walk or hit by pitch. This is completely ridiculous. But, just for fun, if the entire league applied that strategy, we would have more than 17,000 steal attempts ... only about 12,000 more than the all-time record set in 1987!
 
-The White Sox had strong interest in Maldonado prior to acquiring Stassi, but that interest clearly continued for a catcher with 202 plate appearances and 65 games worth of playoff experience. Maldonado (8,663 2/3 innings) joins Salvador Perez (10,063 2/3), J.T. Realmuto (8,923 1/3), Yasmani Grandal (8,404 2/3) and Yan Gomes (8,242 2/3) as the only active backstops with more than 8,000 innings caught.
+OK, so ... that’s not happening. But a resolution for a little more derring-do after years of sabermetrically inclined cautiousness would be appreciated. Base stealers had an all-time best 80.2% success rate this past season on the highest number of attempts (4,369) since 2012. There’s really no reason we can’t get to a number closer to 5,000 attempts, which would be in line with what we saw in the 1990s.
 
-DETROIT -- It's history that not many fans inside Little Caesars Arena were looking forward to experiencing Tuesday night, but the Detroit Pistons couldn't avoid NBA infamy, dropping their 27th straight game with a 118-112 loss to the Brooklyn Nets.
+Hyde on Orioles' turnaround
+Dec 4, 2023 · 8:05
+Hyde on Orioles' turnaround
+To ascending teams: Don’t take your window for granted
+I’m looking most specifically at you, Orioles and Reds. I get it, you don’t want to sacrifice too much of tomorrow for today. But the tepidness you showed at the Trade Deadline arguably came back to bite you down the stretch in 2023.
 
-It's the most consecutive losses in a single season in league history. The 76ers have the overall record, losing 28 straight, but that spanned the 2014-15 and 2015-16 seasons.
+A truly fun O’s team did not do enough to upgrade a pitching staff that, unfortunately, looked a heck of a lot different once Félix Bautista went down in August, leading to a quick exit in October. And the surprising Reds didn’t do anything to improve a starting staff that had one of the highest ERAs in MLB -- a big reason why they fell short of October.
 
-Detroit hasn't won a game since its home opener Oct. 28, against Chicago, and now is 2-28 on the season.
+A ”window,” as we so often refer to it, is a delicate thing in this game. You can build an elite core but still only get one or two big bites at the apple. I’m thinking here about the Cubs’ supposed dynasty that bubbled to the surface in 2015 and only reached (and won) the World Series once. Or in smaller-market terms, a Royals team that sandwiched consecutive World Series appearances inside of multiple third-place finishes in the AL Central.
 
-Entering Tuesday's game, Pistons coach Monty Williams couldn't avoid the topic of the all-time losing mark -- something he didn't want his name connected to - but it continues to weigh heavy on the franchise.
-
-"I'm sure it was. Again, when you look at records, you think of coaches, but I'm sure the players don't want that attached to the name on the jersey," Williams said. "Was it heavy? It's been heavy for a while. That's just the nature of this kind of losing streak and it's not gonna change because we're grading the level of it, we've got to do what we've got to do to change it."
-
-Historic Skid
-
-The Pistons have the second-longest losing streak in NBA, NFL, NHL and MLB history. The Sixers' 28-game losing streak in 2015 spanned multiple seasons.
-
-LEAGUE
-2015	76ers	28*	NBA
-2023-24	Pistons	27	NBA
-2013-14	76ers	26	NBA
-2010-11	Cavaliers	26	NBA
-1976-77	Buccaneers	26*	NFL
-1889	Colonels	26	MLB
-* Spanned multiple seasons
-Cade Cunningham, the No. 1 overall pick of the 2021 draft, finished with a game-high 41 points to go along with 9 rebounds and 5 assists. He had 37 points in the second half alone, but has now lost all 10 career games when scoring 30 or more points -- the longest streak to start a career in NBA history, according to ESPN Stats & Information research.
-
-After the game, Cunningham addressed the team passionately in the locker room about the things they needed to fix while holding themselves accountable for where they are as they try to overcome this rough patch. He told teammates "Don't' jump off the boat" and to "stay together" as losing continues to mount.
-
-"I don't think what I said was positivity, I think it's just being real ... there's nothing positive about this situation right now that we put ourselves in so that's why we have to dig deep and get ourselves out of it," Cunningham said. "You can't get away from it. It weighs on us every day, I mean everywhere. It weighs on us."
-
-The Pistons got off to a fast start in the opening quarter, holding a 14-point, double-digit lead for the first time in a contest since Nov. 12 (against the Bulls), but committed six turnovers in the second quarter and entered halftime trailing 61-54.
-
-Cunningham went off for 18 points in the third quarter as the Pistons went down 71-60 at 8:35 after a driving floater by Cam Johnson, but pulled within three entering the fourth. Fans chanted "Let's go Pistons" during the final frame, trying to rally the home team as Cunningham nailed a trey at 8:10 to put Detroit up 97-92.
-
-But the Nets closed the game on a 26-15 run to etch the 2023-24 Pistons in the history books. As the final seconds ticked off the clock, a host of fans started to chant, "Sell the team! Sell the team!" though Pistons owner Tom Gores was not in the building to hear it.
-
-The chants didn't sit well with some of the players.
-
-"We have the right people in this locker room and most importantly, I just heard the fans talking about sell the team and just in my mind it's like what we talked about, who is with us? Whose really with us?" said second-year guard Jaden Ivey, who ended with 9 points and 4 assists. "The crowd was amazing, I thought, but there's some that [I'm wondering] who is really with us?
-
-"Chanting 'sell the team,' I thought it was a bit much because we're growing and obviously the record and a lot of people expected us to be better in this upcoming point of the season but we're gonna continue to row the boat and we're gonna forget what everybody else says, stay together and play for each other."
+Seizing your moment when it comes is the point. The D-backs were on the fringes of the NL Wild Card race in 2023 and sent a message to their clubhouse by adding a terrific closer in Paul Sewald and power in Tommy Pham. They reached the World Series and have parlayed that into an aggressive offseason. The O’s and Reds possess two of the Top 5 farm systems in the game, per MLB Pipeline’s rankings, so they should resolve to leave no stone unturned if they’re back in the thick of things this summer.
 
 
-User
-C read with dynamic buffer
-ChatGPT
-To read input with a dynamic buffer in C, you can use the malloc function to allocate memory for the buffer and then use functions like fgets or getline to read input into the dynamically allocated buffer. Here's an example using getline, which dynamically allocates memory for a buffer and reads a line from the standard input:
 
-c
-Copy code
-#include <stdio.h>
-#include <stdlib.h>
+Get the Latest From MLB
+Sign up to receive our daily Morning Lineup to stay in the know about the latest trending topics around Major League Baseball.
 
-int main() {
-    char *buffer = NULL;
-    size_t bufferSize = 0;
-    ssize_t bytesRead;
+Enter your email
+Sign up
+Edward Cabrera's eight strikeouts
+Sep 6, 2023 · 1:07
+Edward Cabrera's eight strikeouts
+To managers: Loosen the leash on your starters
+From the Department of Wishful Thinking, wouldn’t it be nice if teams put a little more faith in their starting pitchers? Yes, yes, I am aware of the "Third Time Through the Order" penalty. It’s real. I get it.
 
-    printf("Enter a line of text (Ctrl+D to end on Unix/Linux, Ctrl+Z on Windows):\n");
+But we’ve also reached this bizarre point in the evolution of the game in which starters are resting more to pitch ... less. Last season, starters made 1,988 starts on five days’ rest, shattering the record set in 2018 (1,813). Yet, the number of innings thrown by starters (24,984) was the second-lowest in a full season in the 30-team era.
 
-    // Read a line of input into the dynamically allocated buffer
-    bytesRead = getline(&buffer, &bufferSize, stdin);
+It’s especially stark with young starters. Only 27 pitchers aged 25 or younger reached the 100-inning threshold in 2023. That was one fewer than in 1994 (a season that ended on Aug. 11 because of the strike) and the same number as 1954 and 1959 (when there were only 16 teams). If protecting young arms is the goal, then the strategy is a failure, as evidenced by the perpetually problematic pitching-injury rate.
 
-    if (bytesRead == -1) {
-        perror("Error reading input");
-    } else {
-        // Print the input
-        printf("You entered: %s", buffer);
+Commissioner Rob Manfred has publicly floated the idea of further limiting the sizes of pitching staffs (thereby reducing bullpen sizes). So it would behoove the industry to resolve to develop starters that go deeper into games. Let’s start now!
 
-        // Process the input as needed
+Nolan Schanuel's first career HR
+Sep 16, 2023 · 0:26
+Nolan Schanuel's first career HR
+To several MLB teams: Let’s see the fruits of the 2023 Draft
+Because the pandemic had prompted some prominent high school prospects to go to college instead of the pros, the top end of the 2023 Draft was one of the most talented in recent memory. As the game skews younger and developmental timelines are accelerated, it’s not outrageous to suggest we get meaningful innings and at-bats in 2024 from guys plucked out of college just a year prior. Heck, the Angels already promoted No. 11 overall pick Nolan Schanuel in August!
 
-        // Free the dynamically allocated buffer
-        free(buffer);
-    }
+So to the acquiring clubs, let’s resolve not to let Paul Skenes (Pirates), Dylan Crews (Nationals), Wyatt Langford (Rangers) or any other potential future stars reside in the pipeline if it’s not absolutely developmentally necessary.
 
-    return 0;
-}
-In this example:
+Mike Trout leaves the game 
+Jul 3, 2023 · 0:34
+Mike Trout leaves the game
+To whatever baseball gods are in charge of injuries: Leave Mike Trout alone
+Just 237 games played from 2021-23. That ain’t gonna cut it. Trout is already a Hall of Famer in waiting, but the shortened 2020 season and a litany of injuries are going to have a big impact on his round numbers. He once had a possible path to 700 homers. Now, we just want to see this linebacker in baseball clothes post up numbers to make 500 a foregone conclusion again.
 
-getline is used to read a line of input. It automatically allocates memory for the buffer as needed.
-The function returns the number of bytes read (including the newline character) or -1 on failure.
-The free function is used to release the memory allocated for the buffer when you're done using it.
-Remember that dynamic memory allocation comes with responsibilities. You should always free the memory when you're done using it to avoid memory leaks. Additionally, you may want to check for errors and handle them appropriately based on your application's requirements.
+Trout has adjusted his playing style and made a concerted effort to protect his body on the field, to no avail. He’s lost teammate Shohei Ohtani to the Dodgers. Let’s resolve to let the man play in 2024.
 
-User
-C read() with dynamic buffer
-ChatGPT
-If you want to use the read system call to read input into a dynamically allocated buffer in C, you can combine it with malloc for dynamic memory allocation. Here's an example:
+(Oh, and I’d also like to put in a good word for Kris Bryant and, um, every single pitcher on the planet. Thanks.)
 
-c
-Copy code
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+Manfred on expansion, pitch clock
+Nov 1, 2023 · 6:58
+Manfred on expansion, pitch clock
+To critics: Stop blaming the pitch clock for injuries and the playoff format for upsets
+As noted above, pitching injuries are a part of the game. A big part, unfortunately. All the more as velocities have increased, non-fastball use has increased and spin rate and max-effort bursts of effectiveness (rather than durability) has been prioritized in pitching development.
 
-#define BUFFER_SIZE 1024
+Some have tried to push forward a narrative that the pitch clock suddenly ushered in another wave of injuries. The data does not support it. For one, injuries had skyrocketed as the game slowed to a crawl in the pre-pitch clock era. Ulnar collateral ligament surgeries at the MLB and MiLB levels have been on an upward trajectory for decades and have been exacerbated by more players entering the professional ranks already with significant injury histories. Injured-list placements were actually down in 2023 (497), relative to 2022 (501) -- and 49.3% of those placed on the IL in 2023 had been on the IL in 2022 or 2023 (because the best predictor of future injury is past injury).
 
-int main() {
-    char *buffer = NULL;
-    size_t bufferSize = BUFFER_SIZE;  // Initial buffer size
-    ssize_t bytesRead;
+Baseball absolutely has a pitching-injury problem, but it’s not a new invention of the clock. If anything, long term, the increased pace provided by the clock could conceivably improve pitcher durability, as future Hall of Famer CC Sabathia recently told me.
 
-    buffer = (char *)malloc(bufferSize * sizeof(char));
-    if (buffer == NULL) {
-        perror("Error allocating memory");
-        return 1;
-    }
+“Guys can’t walk around the mound and load up and throw as hard as they can,” Sabathia said. “You’ve got to get into some kind of rhythm. And when you get into a rhythm, you can throw deeper into the game.”
 
-    printf("Enter text (Ctrl+D to end on Unix/Linux, Ctrl+Z on Windows):\n");
+As for the postseason, October randomness is a feature, not a bug. We’re not going back to the two-team postseason or the four-team postseason. Personally, I’m in favor of expanded playoffs as an avenue for teams with lesser resources to forge their way to the Fall Classic.
 
-    // Use a loop to read data in chunks
-    while ((bytesRead = read(STDIN_FILENO, buffer, bufferSize)) > 0) {
-        // Process the read data as needed
-        // ...
+This new format is imperfect ... just like every Wild Card format before it. But if the extra day or two that top division winners have off in this format versus the previous format is such an issue, there is a very easy solution: At the conclusion of the regular season, the top two seeds in each league get to decide if they’d rather have the time off or play in the best-of-three Wild Card Series.
 
-        // Resize the buffer if necessary
-        bufferSize += BUFFER_SIZE;
-        buffer = (char *)realloc(buffer, bufferSize * sizeof(char));
-        if (buffer == NULL) {
-            perror("Error reallocating memory");
-            free(buffer);
-            return 1;
-        }
-    }
+Can’t wait to see how that will go.
 
-    if (bytesRead == -1) {
-        perror("Error reading input");
-        free(buffer);
-        return 1;
-    }
+“If having five days [off] means you can’t make the adjustment,” said ace Spencer Strider after the Braves were ousted in the NLDS for the second straight year, “you have nobody to blame but yourself.”
 
-    // Process the final content of the buffer
-    // ...
+What he said.
 
-    printf("You entered: %s\n", buffer);
+Ohtani is officially introduced
+Dec 14, 2023 · 3:18
+Ohtani is officially introduced
+To us observers: Let’s not get too giddy about “winter winners”
+Man, they deke us every time, don’t they? Last winter, the Mets spent so many dollars that many of us ignored that the average age of the starting staff was about as old as the presidents depicted on those dollars. The Padres were clutch in the Hot Stove season but not during the real season, when they went 9-23 (!) in one-run games and 2-12 (!!!) in extra innings.
 
-    // Free the dynamically allocated buffer
-    free(buffer);
+So, sure, applaud the perennial division-winning Dodgers for upping the ante and their World Series hopes with the Shohei Ohtani and Yoshinobu Yamamoto signings and Tyler Glasnow trade. Herald the Yankees for bringing in another superstar in Juan Soto. Salute the Royals for committing more than $100 million to their future payroll with an uncharacteristically aggressive winter.
 
-    return 0;
-}
-In this example:
+But also ... calm down. It’s January.
 
-read is used to read input from the standard input (file descriptor STDIN_FILENO). It reads data in chunks, and the loop continues until there is no more data to read.
-The buffer is initially allocated with a fixed size, and realloc is used to dynamically resize the buffer when needed.
-The program dynamically allocates memory for the buffer using malloc and later resizes it using realloc.
-Error handling is included to check for failures in memory allocation, reallocation, and reading.
-Remember to free the dynamically allocated memory using free when you are done using it to prevent memory leaks.
 
-User
-c if else with ?
-ChatGPT
-In C, the conditional operator ? : is a ternary operator that allows you to express a simple conditional statement in a concise form. It can be used as an alternative to the if-else statement when you need to assign a value based on a condition. The general syntax is:
+To everybody: Stop saying “the MLB”
+It’s Major League Baseball, not "The Major League Baseball." When you say or write “the MLB,” everything you say or write afterward is ignored by those of us who can only hear the internal, blood-curdling scream raging in our heads as your fifth-grade English teacher cries uncontrollably.
 
-c
-Copy code
-condition ? expression_if_true : expression_if_false;
-Here's an example of using the ternary operator:
+The slow creep of “the MLB” into our sports lexicon has got to stop. I’ve seen it on otherwise legitimate social-media feeds and in print from people who should know better. If we don’t put a stop to this in 2024, what kind of world are we leaving behind for our children?
 
-c
-Copy code
-#include <stdio.h>
+Let’s resolve to make this the year the bell tolls for “the.”
 
-int main() {
-    int number;
+Did you like this story?
+Anthony Castrovince has been a reporter for MLB.com since 2004.
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+Related
 
-    // Using the ternary operator to check if the number is even or odd
-    (number % 2 == 0) ? printf("Even\n") : printf("Odd\n");
+Power Rankings: Who's on top to begin 2024?
+6:00 PM PST
 
-    return 0;
-}
-In this example, (number % 2 == 0) ? printf("Even\n") : printf("Odd\n"); is equivalent to an if-else statement:
 
-c
-Copy code
-if (number % 2 == 0) {
-    printf("Even\n");
-} else {
-    printf("Odd\n");
-}
-You can use the ternary operator in more complex expressions as well. However, keep in mind that it's generally recommended to use the if-else statement for more complex logic or when the code might be more readable with a full if-else structure. The ternary operator is often preferred for simple, one-line conditions.
+5 Hot Stove storylines to watch entering '24
+6:01 PM PST
 
-User
-Can you perform assignments in those type of if-else expressions?
-ChatGPT
-Yes, you can perform assignments in the expressions of the ternary conditional operator (? :). Here's an example:
 
-c
-Copy code
-#include <stdio.h>
+Breaking down the best free agents still available
+6:03 PM PST
 
-int main() {
-    int number;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+Sartorial splendor in Seattle: Knights, Kraken dress to impress
+3:10 PM PST
 
-    // Using the ternary operator to assign a value based on the condition
-    int result = (number % 2 == 0) ? 2 : 3;
 
-    printf("Result: %d\n", result);
+Looking back at Doc's postseason no-no
+6:38 AM PST
 
-    return 0;
-}
-In this example, the value of result is assigned based on whether the number is even or odd. If number is even, result is assigned the value 2; otherwise, it's assigned the value 3.
 
-You can perform more complex assignments or expressions within the conditional operator as needed. However, it's important to keep the code clear and readable. If the logic becomes too complex, it might be better to use a traditional if-else statement for better readability.
+5 reasons Utley belongs in the Hall of Fame
+6:02 PM PST
+
+Related
+
+Power Rankings: Who's on top to begin 2024?
+6:00 PM PST
+
+
+5 Hot Stove storylines to watch entering '24
+6:01 PM PST
+
+
+Breaking down the best free agents still available
+6:03 PM PST
+
+
+Sartorial splendor in Seattle: Knights, Kraken dress to impress
+3:10 PM PST
+
+You may have missed...
+
+What's in store for rest of Giants' offseason?
+December 29th, 2023
+
+
+Giants, Murphy officially agree to two-year deal
+December 23rd, 2023
+
+
+Here is one prediction for every team in '24
+December 31st, 2023
+
+
+Pederson getting interest from the Blue Jays (report)
+December 31st, 2023
+
+OFFICIAL INFORMATION
+HELP/CONTACT US
+MORE MLB SITES & AFFILIATES
+CAREERS
+MLB.com
+Boys and Girls Club of America
+CONNECT WITH MLB
