@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <limits.h>
 
 #define OPTIONS "hvi:o:"
 
@@ -60,7 +61,7 @@ int main(int argc, char **argv) {
 
     // Step 1: Read through infile to construct histogram and copy data into string for future use
     uint64_t hist[ALPHABET] = {0};
-    int nbytes = 50000;
+    int nbytes = INT_MAX;
     uint8_t *buf = (uint8_t *) malloc(BLOCK * sizeof(uint8_t));
     int bytes_read = read_bytes(iFile, buf, nbytes);
 

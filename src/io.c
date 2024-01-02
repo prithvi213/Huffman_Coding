@@ -13,6 +13,7 @@ uint64_t bytes_written = 0;
 static uint8_t buffer_write[BLOCK] = {0};
 static int index_val = 0;
 
+// Read bytes from infile into the buffer
 int read_bytes(int infile, uint8_t *buf, int nbytes) {
     int byte_count, smaller_byte_amount;
     int current_bytes_read = 0;
@@ -28,6 +29,7 @@ int read_bytes(int infile, uint8_t *buf, int nbytes) {
     return bytes_read;
 }
 
+// Write bytes to outfile
 int write_bytes(int outfile, uint8_t *buf, int nbytes) {
     int byte_count, smaller_byte_amount, smaller_size;
     int current_bytes_written = 0;
@@ -44,6 +46,7 @@ int write_bytes(int outfile, uint8_t *buf, int nbytes) {
     return bytes_written;
 }
 
+// Reads bits from encoded output to decode output
 bool read_bit(int infile, uint8_t *bit) {
     static uint8_t buffer_read[BLOCK];
     static uint32_t index = 0;
@@ -62,6 +65,7 @@ bool read_bit(int infile, uint8_t *bit) {
     return true;
 }
 
+// Write codes in block chunks and use index tracker to determine which byte to set
 void write_code(int outfile, Code *c) {
     for(uint32_t i = 0; i < code_size(c); i++) {
         if(index_val == (BLOCK * 8)) {
@@ -80,6 +84,7 @@ void write_code(int outfile, Code *c) {
     }
 }
 
+// Flush remaining codes in buffer_write
 void flush_codes(int outfile) {
     if(index_val > 0) {
         uint32_t bytes = (index_val / BITS_PER_BLOCK) + (index_val % BITS_PER_BLOCK ? 1 : 0);
