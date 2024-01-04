@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
 
     build_codes(root, table);
 
-    // Step 5: Construct a header
+    // Step 5: Construct a header and set its fields
     Header h;
     struct stat stat;
     h.magic = MAGIC;
@@ -110,7 +110,6 @@ int main(int argc, char **argv) {
     h.file_size = stat.st_size;
 
     // Step 6: Write Header to Outfile
-    //snprintf((char *)buf, BLOCK, "Header Magic: %u\nHeader Permissions: %u\nHeader Tree Size: %u\nHeader File Size: %llu\n\n", h.magic, h.permissions, h.tree_size, h.file_size);
     snprintf((char *)buf, BLOCK, "%u\n%u\n%u\n%llu\n", h.magic, h.permissions, h.tree_size, h.file_size);
     int bytes_written = write_bytes(oFile, buf, strlen((char*)buf));
     memset(buf, 0, bytes_written);
@@ -125,14 +124,17 @@ int main(int argc, char **argv) {
 
     while((bytes_read = read_bytes(iFile, buf, BLOCK)) > 0) {        
         for(int i = 0; i < bytes_read; i++) {
+            // Write the code for each character in the buffer
             write_code(oFile, &(table[buf[i]]));
         }
 
         memset(buf, 0, bytes_read);
     }
     
+    // Write the remaining codes in the buffer which haven't been written out
     flush_codes(oFile);
 
+    // If print_stats option is envoked
     if(print_stats) {}
 
     // Step 9: Close infile and outfile and free up memory

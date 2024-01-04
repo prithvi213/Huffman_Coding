@@ -134,14 +134,16 @@ int main(int argc, char **argv) {
         }
     }
     
+    // Write out remaining bytes in buffer
     write_bytes(oFile, buf, buf_index);
     memset(buf, 0, buf_index);
 
+    // If print_stats option is envoked
     if(print_stats) {}
 
     // Step 5: Close infile and outfile and free up memory
     delete_tree(&rebuilt_tree);
-    //free(buf);
+    free(buf);
     close(iFile);
     close(oFile);
 
