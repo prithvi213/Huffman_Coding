@@ -60,11 +60,11 @@ void dump_tree(int outfile, Node *root) {
 
         if(root->left == NULL && root->right == NULL) {
             node_type = 'L';
-            write(outfile, &node_type, 1);
-            write(outfile, &(root->symbol), 1);
+            write_bytes(outfile, &node_type, 1);
+            write_bytes(outfile, &(root->symbol), 1);
         } else {
             node_type = 'I';
-            write(outfile, &node_type, 1);
+            write_bytes(outfile, &node_type, 1);
         }
     }
 }
@@ -76,6 +76,9 @@ Node *rebuild_tree(uint16_t nbytes, uint8_t tree[static nbytes]) {
     for(uint16_t i = 0; i < nbytes; i++) {
         if(tree[i] == 'L') {
             stack_push(s, node_create(tree[i + 1], 0));
+            //printf("Character is: %c\n", tree[i + 1]);
+            i += 1;
+            
         } else if(tree[i] == 'I') {
             Node *left, *right;
             stack_pop(s, &right);

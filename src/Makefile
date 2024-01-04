@@ -1,10 +1,13 @@
 CC = clang
 CFLAGS = -g -Wall -Wextra -Werror -Wpedantic
 
-all: encode
+all: encode decode
 
 encode: encode.o huffman.o io.o code.o pq.o stack.o node.o
 	$(CC) $(CFLAGS) -o encode $^
+
+decode: decode.o huffman.o io.o code.o pq.o stack.o node.o
+	$(CC) $(CFLAGS) -o decode $^
 
 %.o: %.c *.h
 	$(CC) $(CFLAGS) -c $<

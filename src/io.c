@@ -15,53 +15,52 @@ static int index_val = 0;
 
 // Read bytes from infile into the buffer
 int read_bytes(int infile, uint8_t *buf, int nbytes) {
-    int byte_count, smaller_byte_amount;
-    int current_bytes_read = 0;
-    smaller_byte_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
+    int byte_count = 0, current_bytes_read = 0;
+    int smaller_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
 
-    while((byte_count = read(infile, buf + current_bytes_read, smaller_byte_amount)) > 0 && nbytes > 0) {
+    while((byte_count = read(infile, buf + current_bytes_read, smaller_amount)) > 0) {
         nbytes -= byte_count;
         bytes_read += byte_count;
         current_bytes_read += byte_count;
-        smaller_byte_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
+        smaller_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
     }
 
-    return bytes_read;
+    return current_bytes_read;
 }
 
 // Write bytes to outfile
 int write_bytes(int outfile, uint8_t *buf, int nbytes) {
-    int byte_count, smaller_byte_amount, smaller_size;
-    int current_bytes_written = 0;
-    smaller_size = ((int)(strlen((char *)buf)) < nbytes) ? (int)(strlen((char *)buf)) : nbytes;
-    smaller_byte_amount = (smaller_size < BLOCK) ? smaller_size : BLOCK;
+    int byte_count = 0, current_bytes_written = 0;
+    int smaller_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
 
-    while((byte_count = write(outfile, buf + current_bytes_written, smaller_byte_amount)) > 0 && nbytes > 0) {
-        smaller_size -= byte_count;
+    while((byte_count = write(outfile, buf + current_bytes_written, smaller_amount)) > 0 && nbytes > 0) {
+        nbytes -= byte_count;
         bytes_written += byte_count;
         current_bytes_written += byte_count;
-        smaller_byte_amount = (smaller_size < BLOCK) ? smaller_size : BLOCK;
+        smaller_amount = (nbytes < BLOCK) ? nbytes : BLOCK;
     }
 
-    return bytes_written;
+    return current_bytes_written;
 }
 
 // Reads bits from encoded output to decode output
 bool read_bit(int infile, uint8_t *bit) {
     static uint8_t buffer_read[BLOCK];
     static uint32_t index = 0;
-    static uint64_t br = 0;
+    static int br = 0;
 
-    if(index == 0) {
+    if(index % (BLOCK * 8) == 0) {
+        memset(buffer_read, 0, br);
         br = read_bytes(infile, buffer_read, BLOCK);
+        index = 0;
 
-        if(br == 0) {
+        if(br <= 0) {
             return false;
         }
     }
 
     *bit = (buffer_read[index / BITS_PER_BLOCK] >> (index % BITS_PER_BLOCK)) & 1;
-    index = (index + 1 % BLOCK);
+    index += 1;
     return true;
 }
 
@@ -80,7 +79,7 @@ void write_code(int outfile, Code *c) {
             buffer_write[index_val / BITS_PER_BLOCK] &= ~(1 << index_val % BITS_PER_BLOCK);
         }
 
-        index_val += 1;
+        index_val += 1;      
     }
 }
 
@@ -88,8 +87,7 @@ void write_code(int outfile, Code *c) {
 void flush_codes(int outfile) {
     if(index_val > 0) {
         uint32_t bytes = (index_val / BITS_PER_BLOCK) + (index_val % BITS_PER_BLOCK ? 1 : 0);
-        buffer_write[bytes] = '\0';
-        write_bytes(outfile, buffer_write, bytes);
-        memset(buffer_write, 0, BLOCK);
+        int bw = write_bytes(outfile, buffer_write, bytes);
+        memset(buffer_write, 0, bw);
     }
 }

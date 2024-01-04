@@ -47,8 +47,6 @@ int main(int argc, char **argv) {
         printf("  -o outfile      Output of compressed data.\n");
     }
 
-    if(print_stats) {}
-
     // Open infile if it's not NULL
     if(infile_name != NULL) {
         iFile = open(infile_name, O_RDONLY);
@@ -61,18 +59,16 @@ int main(int argc, char **argv) {
 
     // Step 1: Read through infile to construct histogram and copy data into string for future use
     uint64_t hist[ALPHABET] = {0};
-    int nbytes = INT_MAX;
     uint8_t *buf = (uint8_t *) malloc(BLOCK * sizeof(uint8_t));
-    int bytes_read = read_bytes(iFile, buf, nbytes);
+    int bytes_read = 0;
 
-    for(int i = 0; i < bytes_read; i++) {
-        hist[buf[i]] += 1;
+    while((bytes_read = read_bytes(iFile, buf, BLOCK)) > 0) {
+        for(int i = 0; i < bytes_read; i++) {
+            hist[buf[i]] += 1;
+        }
+
+        memset(buf, 0, bytes_read);
     }
-
-    uint8_t *data = (uint8_t *) malloc(bytes_read + 1);
-    memcpy(data, buf, bytes_read * sizeof(uint8_t));
-    data[bytes_read] = '\0';
-    memset(buf, 0, bytes_read);
 
     // Step 2: Increment indexes for histogram[0] and histogram[255]
     hist[0] += 1;
@@ -108,32 +104,46 @@ int main(int argc, char **argv) {
         if(hist[i] > 0) {
             different_symbols += 1;
         }
-    }    
+    } 
+
+    for(int i = 0; i < 256; i++) {
+        if(code_size(&(table[i])) > 0) {
+            printf("table[%c] = ", (uint8_t)i);
+            code_print(&(table[i]));
+        }
+    }
 
     h.tree_size = (3 * different_symbols) - 1;
     h.file_size = stat.st_size;
 
     // Step 6: Write Header to Outfile
-    snprintf((char *)buf, BLOCK, "Header Magic: %u\nHeader Permissions: %u\nHeader Tree Size: %u\nHeader File Size: %llu\n\n", h.magic, h.permissions, h.tree_size, h.file_size);
-    int bytes_written = write_bytes(oFile, buf, nbytes);
+    //snprintf((char *)buf, BLOCK, "Header Magic: %u\nHeader Permissions: %u\nHeader Tree Size: %u\nHeader File Size: %llu\n\n", h.magic, h.permissions, h.tree_size, h.file_size);
+    snprintf((char *)buf, BLOCK, "%u\n%u\n%u\n%llu\n", h.magic, h.permissions, h.tree_size, h.file_size);
+    int bytes_written = write_bytes(oFile, buf, strlen((char*)buf));
     memset(buf, 0, bytes_written);
 
     // Step 7: Write constructed Huffman Tree to Outfile
     dump_tree(oFile, root);
-    char new_line = '\n';
-    write(oFile, &new_line, 1);
-    write(oFile, &new_line, 1);
+    uint8_t new_line = '\n';
+    write_bytes(oFile, &(new_line), 1);
 
     // Step 8: Write corresponding code for each symbol to outfile and flush remaining codes
-    for(int i = 0; i < bytes_read; i++) {
-        write_code(oFile, &(table[data[i]]));
-    }
+    lseek(iFile, 0, SEEK_SET);
 
+    while((bytes_read = read_bytes(iFile, buf, BLOCK)) > 0) {        
+        for(int i = 0; i < bytes_read; i++) {
+            write_code(oFile, &(table[buf[i]]));
+        }
+
+        memset(buf, 0, bytes_read);
+    }
+    
     flush_codes(oFile);
+
+    if(print_stats) {}
 
     // Step 9: Close infile and outfile and free up memory
     free(buf);
-    free(data);
     delete_tree(&root);
     close(iFile);
     close(oFile);
