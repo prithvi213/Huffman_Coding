@@ -106,13 +106,6 @@ int main(int argc, char **argv) {
         }
     } 
 
-    for(int i = 0; i < 256; i++) {
-        if(code_size(&(table[i])) > 0) {
-            printf("table[%c] = ", (uint8_t)i);
-            code_print(&(table[i]));
-        }
-    }
-
     h.tree_size = (3 * different_symbols) - 1;
     h.file_size = stat.st_size;
 
