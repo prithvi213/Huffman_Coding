@@ -104,14 +104,23 @@ int main(int argc, char **argv) {
 
     // Step 4: Read infile one bit at a time and traverse down tree as each bit is read
     uint8_t bit;
-    uint64_t index = 0;
+    uint8_t *buf = (uint8_t *) malloc(BLOCK * sizeof(uint8_t));
+    uint64_t size = 0;
+    uint32_t buf_index = 0;
     Node *root = rebuilt_tree;
 
-    while(index < file_size) {
+    while(size < file_size) {
         // Check if at a leaf node and write the symbol
         if(root->left == NULL && root->right == NULL) {
-            write_bytes(oFile, &(root->symbol), 1);
-            index += 1;
+            buf[buf_index] = root->symbol;
+
+            if(buf_index == BLOCK - 1) {
+                write_bytes(oFile, buf, BLOCK);
+                memset(buf, 0, BLOCK);
+            }
+
+            size += 1;
+            buf_index = (buf_index + 1) % BLOCK;
             root = rebuilt_tree;
         } else {
             // Otherwise, read a bit and traverse
@@ -124,11 +133,15 @@ int main(int argc, char **argv) {
             }
         }
     }
+    
+    write_bytes(oFile, buf, buf_index);
+    memset(buf, 0, buf_index);
 
     if(print_stats) {}
 
     // Step 5: Close infile and outfile and free up memory
     delete_tree(&rebuilt_tree);
+    //free(buf);
     close(iFile);
     close(oFile);
 
