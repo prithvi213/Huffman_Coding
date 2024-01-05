@@ -147,8 +147,8 @@ int main(int argc, char **argv) {
     if(print_stats) {
         struct stat stat_ifile;
         fstat(iFile, &stat_ifile);
-        printf("File Size of encoded input file: %llu\n", stat_ifile.st_size - header_size - tree_size - 1);
-        printf("File Size of decoded file: %llu\n", file_size);
+        printf("File Size of Encoded Input File: %llu\n", stat_ifile.st_size - header_size - tree_size - 1);
+        printf("File Size of Decoded File: %llu\n", file_size);
         
         double space_saving = 100.0 * (1 - (((double)stat_ifile.st_size - header_size - tree_size - 1) / ((double)file_size)));
         space_saving = round(space_saving * 10.0) / 10.0;

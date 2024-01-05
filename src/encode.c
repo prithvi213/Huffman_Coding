@@ -139,8 +139,8 @@ int main(int argc, char **argv) {
     // If print_stats option is envoked
     if(print_stats) {
         fstat(oFile, &stat_ofile);
-        printf("File Size of original file: %llu\n", h.file_size);
-        printf("File Size of encoded output: %llu\n", stat_ofile.st_size - header_size - h.tree_size - 1);
+        printf("File Size of Original File: %llu\n", h.file_size);
+        printf("File Size of Encoded Output: %llu\n", stat_ofile.st_size - header_size - h.tree_size - 1);
         
         double space_saving = 100.0 * (1 - (((double)stat_ofile.st_size - header_size - h.tree_size - 1) / ((double)h.file_size)));
         space_saving = round(space_saving * 10.0) / 10.0;
