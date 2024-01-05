@@ -15,6 +15,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <limits.h>
+#include <math.h>
 
 #define OPTIONS "hvi:o:"
 
@@ -89,15 +90,15 @@ int main(int argc, char **argv) {
 
     // Step 5: Construct a header and set its fields
     Header h;
-    struct stat stat;
+    struct stat stat_ifile, stat_ofile;
     h.magic = MAGIC;
     int different_symbols = 0;
     
-    if(fstat(iFile, &stat) < 0) {
+    if(fstat(iFile, &stat_ifile) < 0) {
         return 1;
     }
 
-    h.permissions = (stat.st_mode & 0777);
+    h.permissions = (stat_ifile.st_mode & 0777);
     fchmod(oFile, h.permissions);
     
     for(uint32_t i = 0; i < ALPHABET; i++) {
@@ -107,11 +108,12 @@ int main(int argc, char **argv) {
     } 
 
     h.tree_size = (3 * different_symbols) - 1;
-    h.file_size = stat.st_size;
+    h.file_size = stat_ifile.st_size;
 
     // Step 6: Write Header to Outfile
     snprintf((char *)buf, BLOCK, "%u\n%u\n%u\n%llu\n", h.magic, h.permissions, h.tree_size, h.file_size);
     int bytes_written = write_bytes(oFile, buf, strlen((char*)buf));
+    uint64_t header_size = (uint64_t)bytes_written;
     memset(buf, 0, bytes_written);
 
     // Step 7: Write constructed Huffman Tree to Outfile
@@ -135,7 +137,15 @@ int main(int argc, char **argv) {
     flush_codes(oFile);
 
     // If print_stats option is envoked
-    if(print_stats) {}
+    if(print_stats) {
+        fstat(oFile, &stat_ofile);
+        printf("File Size of original file: %llu\n", h.file_size);
+        printf("File Size of encoded output: %llu\n", stat_ofile.st_size - header_size - h.tree_size - 1);
+        
+        double space_saving = 100.0 * (1 - (((double)stat_ofile.st_size - header_size - h.tree_size - 1) / ((double)h.file_size)));
+        space_saving = round(space_saving * 10.0) / 10.0;
+        printf("Space Saved: %.1f%%\n", space_saving);
+    }
 
     // Step 9: Close infile and outfile and free up memory
     free(buf);

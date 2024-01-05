@@ -15,8 +15,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <limits.h>
+#include <math.h>
 
 #define OPTIONS "hvi:o:"
+
+static int header_size;
 
 // Inline function used to scrape values at a line (used for first 4 lines of encoded file)
 static inline unsigned long get_value_at_line(int iFile) {
@@ -26,12 +29,14 @@ static inline unsigned long get_value_at_line(int iFile) {
 
     while((br = read(iFile, &c, 1)) > 0) {
         if(c == '\n') {
+            header_size += 1;
             buf[index] = '\0';
             break;
         }
 
         buf[index] = c;
         index += 1;
+        header_size += 1;
     }
 
     unsigned long value = strtoul(buf, NULL, 10);
@@ -139,7 +144,16 @@ int main(int argc, char **argv) {
     memset(buf, 0, buf_index);
 
     // If print_stats option is envoked
-    if(print_stats) {}
+    if(print_stats) {
+        struct stat stat_ifile;
+        fstat(iFile, &stat_ifile);
+        printf("File Size of encoded input file: %llu\n", stat_ifile.st_size - header_size - tree_size - 1);
+        printf("File Size of decoded file: %llu\n", file_size);
+        
+        double space_saving = 100.0 * (1 - (((double)stat_ifile.st_size - header_size - tree_size - 1) / ((double)file_size)));
+        space_saving = round(space_saving * 10.0) / 10.0;
+        printf("Space Saved: %.1f%%\n", space_saving);
+    }
 
     // Step 5: Close infile and outfile and free up memory
     delete_tree(&rebuilt_tree);
