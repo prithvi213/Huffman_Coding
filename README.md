@@ -17,8 +17,8 @@ make decode
 ./encode -p -v -i infile -o outfile (p, v, i, and o are 4 optional command-line arguments)
 -p specifies that you want to print out the usage description
 -v specifies that you want to print out compression statistics
--i specifies the infile to which you want to encode (if none specified, then it reads from the standard input)
--o specifies the outfile to which you want to write the encoded output to (if none specified, then it writes to the console/standard output)
+-i requires you to specify the infile to which you want to encode (if none specified, then it reads from the standard input)
+-o requires you to specify the outfile to which you want to write the encoded output to (if none specified, then it writes to the console/standard output)
 
 # To Run the Decoder
 ./decode -p -v -i infile -o outfile (p, v, i, and o are 4 optional command-line arguments)
