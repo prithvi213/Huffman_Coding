@@ -1,4 +1,4 @@
-# Huffman Coding
+# Huffman Coding (⚠️IT IS A SCHOOL PROJECT SO NO STUDENTS SHOULD BE ACCESSING MY SOURCE CODE FOR ANY ASSISTANCE WITH ASSIGNMENTS)
 This project uses the Huffman Coding algorithm to compress and decompress large datafiles.
 
 # Huffman Coding Algorithm
